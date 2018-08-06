@@ -56,3 +56,8 @@ Dó → c  /  Ré → d  /  Mi → e  /  Fá → f  /  Sol → g  /  Lá → a  
   ```
  mySong = Modify(Instrument  nome_do_instrumento)(composição)
   ```
+  
+  ## Exemplo e compilação
+  
+  ## Reprodução de MIDI com Euterpea
+  
