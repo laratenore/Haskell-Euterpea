@@ -14,7 +14,23 @@ Para o uso da biblioteca Euterpea, antes é necessário ter instalado no computa
 cabal update
 
 cabal install Euterpea
-
 ```
 
 Esta instalação simples da biblioteca já permite que o Haskell identifique notas e instrumentos, além de reconhecimento de arquivos MIDI como explicaremos nas próximas sessões.
+
+
+## Composição de músicas
+
+Com a biblioteca Euterpea é possível escrever músicas baseadas em notas simples. Para trabalhar com este tipo de composição é necessário ter conhecimento dos três conceitos básicas principais explicados abaixo:
+
+* Tratando-se de teoria musical, uma nota é composta por um Pitch (tom ou oitava) e por uma duration (duração). Uma nota na biblioteca é do tipo Music Pitch.
+
+* Na biblioteca Euterpea existem duas funções principais: note e rest.
+
+```
+note :: Dur → Pitch → Music Pitch
+rest :: Dur → Music Pitch
+```
+
+Assim, note d p pode ser lido como uma nota de duração d e oitava p. Da mesma forma, rest d é uma pausa de duração d.
+
