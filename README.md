@@ -50,13 +50,18 @@ Dó → c  /  Ré → d  /  Mi → e  /  Fá → f  /  Sol → g  /  Lá → a  
 ```
 :i InstrumentName
  ```
- 
-  Em uma composição musical, para definir o instrumento é necessário usar a função "Modify" junto ao nome do instrumento, da seguinte forma:
+ ### Funções
+   * Em uma composição musical, para definir o instrumento é necessário usar a função "Modify" junto ao nome do instrumento, da seguinte forma:
   
   ```
  mySong = Modify(Instrument  nome_do_instrumento)(composição)
   ```
+  * Para inverter uma música, existe a função "retro" definida por:
   
+  ```
+  retro :: Music a -> Music a
+  ```
+  Dessa forma, retro mySong toca a música mySong de trás para frente
   ## Exemplo e compilação
   Tomando como exemplo o código do arquivo "teste.hs", a compilação e teste da composição "secondSong" pode ser dada da seguinte forma:
   
