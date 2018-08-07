@@ -58,6 +58,22 @@ Dó → c  /  Ré → d  /  Mi → e  /  Fá → f  /  Sol → g  /  Lá → a  
   ```
   
   ## Exemplo e compilação
+  Tomando como exemplo o código do arquivo "teste.hs", a compilação e teste da composição "secondSong" pode ser dada da seguinte forma:
+  
+  * Importando o arquivo no GHCI:
+  ```
+  ghci teste.hs
+  ```
+  ou 
+  ```
+  ghci 
+  :l teste.hs
+  ```
+  
+  * Tocar a música "secondSong"
+  ```
+  play secondSong
+  ```
   
   ## Reprodução de MIDI com Euterpea
   
