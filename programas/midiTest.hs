@@ -17,13 +17,13 @@ myMidi = Midi { fileType = MultiTrack,
                 tracks   = [track0, track1] }
 
 {-fileToMusic :: [Char] -> IO Music1
-fileToMusic cs = c a <- importFile cs
+fileToMusic cs = do a <- importFile cs
                     b <- (fromRight myMidi) <$> a
                     c <- pure fromMidi <*> b
                     c-}
                     
           
-midiFileIOEither = importFile "twinkletwinkle.mid"
+midiFileIOEither = importFile "midis/twinkletwinkle.mid"
 midiFileIO       = (fromRight myMidi) <$> midiFileIOEither
 musicIO          = pure fromMidi <*> midiFileIO
 song             = musicIO >>= play
