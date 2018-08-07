@@ -82,7 +82,14 @@ Dó → c  /  Ré → d  /  Mi → e  /  Fá → f  /  Sol → g  /  Lá → a  
  chord   :: [Music a] -> Music a
  ```
   
-A função chord 
+A função chord recebe uma lista de composições e reproduz as composições em paralelo como saída. Assim, chord [m1,m2] reproduz a composição m1 :=: m2.
+
+* Para inverter a ordem das notas
+
+```
+invert :: Music Pitch -> Music Pitch
+```
+A função invert é usada para inverter a ordem das notas de forma que Dó continua como Dó, Ré passa a ser interpretado como Si, Mi passa a ser intepretado como Lá, e assim por diante, ou seja, inverte a ordem original das notas. 
 
  ## Exemplo e compilação
   Tomando como exemplo o código do arquivo "teste.hs", a compilação e teste da composição "secondSong" pode ser dada da seguinte forma:
