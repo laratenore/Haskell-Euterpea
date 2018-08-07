@@ -60,7 +60,8 @@ Dó → c  /  Ré → d  /  Mi → e  /  Fá → f  /  Sol → g  /  Lá → a  
   ```
  mySong = Modify(Instrument  nome_do_instrumento)(composição)
   ```
-  É possível definir o instrumento no algoritmo na 
+  É possível definir o instrumento no algoritmo diretamente na composição ou ao compilar a composição, como veremos em exemplos abaixo.
+  
   * Para inverter uma música, existe a função "retro" definida por:
   
   ```
@@ -84,12 +85,12 @@ Dó → c  /  Ré → d  /  Mi → e  /  Fá → f  /  Sol → g  /  Lá → a  
   
 A função chord recebe uma lista de composições e reproduz as composições em paralelo como saída. Assim, chord [m1,m2] reproduz a composição m1 :=: m2.
 
-* Para inverter a ordem das notas
+* Para inverter a ordem das notas por tons
 
 ```
 invert :: Music Pitch -> Music Pitch
 ```
-A função invert é usada para inverter a ordem das notas de forma que Dó continua como Dó, Ré passa a ser interpretado como Si, Mi passa a ser intepretado como Lá, e assim por diante, ou seja, inverte a ordem original das notas. 
+A função invert é usada para inverter a ordem das notas de forma que Dó continua como Dó, Ré passa a ser interpretado como Si, Mi passa a ser intepretado como Lá, e assim por diante, ou seja, inverte a ordem original das notas. Essa inversão leva em consideração o número de tons entre duas notas. Dessa forma, se invert receber apenas uma nota, retornará está mesma nota, porém, se invert recebe duas notas que possuem x tons entre elas, a segunda nota é convertida para a nota que se encontra a x tons anteriores a primeira nota, usada como referência pela função.
 
  ## Exemplo e compilação
   Tomando como exemplo o código do arquivo "teste.hs", a compilação e teste da composição "secondSong" pode ser dada da seguinte forma:
@@ -104,9 +105,38 @@ A função invert é usada para inverter a ordem das notas de forma que Dó cont
   :l teste.hs
   ```
   
-  * Tocar a música "secondSong"
+  * Tocar a música "secondSong":
   ```
-  play secondSong
+  play mySong
+  ```
+  
+  * Tocar música com outro instrumento (funciona apenas se o instrumento não está já definido na composição):
+  
+  ```
+  (play . Modify(Instrument Ocarina)) mySong
+  ```
+  * Tocar a música de trás para frente:
+  ```
+  (play . retro) mySong
+  ```
+  
+  * Acelerar ou desacelerar uma música, respectivamente:
+  ```
+  (play . tempo (2) ) mySong
+  ```
+  ```
+  (play . tempo (1/2) ) mySong
+  ```
+  
+  * Tocar uma lista de composições em paralelo
+  ```
+  play  chord [mySong1, mySong2] 
+  ```
+  
+  * Tocar uma música com as notas invertidas de acordo com os tons:
+  
+  ```
+  (play . invert) mySong
   ```
   
   ## Reprodução de MIDI com Euterpea
