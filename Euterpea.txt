@@ -1,0 +1,13 @@
+Euterpea vem de Euterpe, uma das nove musas gregas das artes, específicamente a da música.
+
+
+retro   :: Music a -> Music a                   # Inverte a musica (Deixa de tras pra frente)           /* Aplicar retro ou   */
+invert  :: Music Pitch -> Music Pitch           # Inverte a musica (Pelo tom), algo complicado          /* invert 2 vezes     */
+invert1 :: Music (Pitch, a) -> Music (Pitch, a) # Mesma coisa do invert para outro tipo                 /* desfaz a aplicacao */
+tempo   :: Dur -> Music a -> Music a            # Acelera ou desacelera a musica
+chord   :: [Music a] -> Music a                 # Recebe um vetor de musicas e junta elas paralelamente
+
+
+
+http://www.euterpea.com/api/euterpea-api/note-level-api/
+http://www.euterpea.com/api/euterpea-api/signal-level-api/
