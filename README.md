@@ -51,18 +51,40 @@ Dó → c  /  Ré → d  /  Mi → e  /  Fá → f  /  Sol → g  /  Lá → a  
 :i InstrumentName
  ```
  ### Funções
-   * Em uma composição musical, para definir o instrumento é necessário usar a função "Modify" junto ao nome do instrumento, da seguinte forma:
-  
+ 
+   * Para definir o instrumento é necessário usar a função "Modify" junto ao nome do instrumento, da seguinte forma:
+ ```
+ Modify :: Control -> Music a -> Music a
+ ```
+ Na definição da função, Modify recebe uma entrada do tipo Control que no caso da biblioteca Euterpea é a Instrument InstrumentName
   ```
  mySong = Modify(Instrument  nome_do_instrumento)(composição)
   ```
+  É possível definir o instrumento no algoritmo na 
   * Para inverter uma música, existe a função "retro" definida por:
   
   ```
   retro :: Music a -> Music a
   ```
-  Dessa forma, retro mySong toca a música mySong de trás para frente
-  ## Exemplo e compilação
+  Dessa forma, retro mySong toca a música mySong de trás para frente.
+  
+  * Para acelerar ou desacelerar uma música, usa-se a função tempo:
+  
+  ```
+  tempo   :: Dur -> Music a -> Music a
+  ```
+  
+ Dessa forma, tempo recebe um número que divide a duração de cada nota na música. Assim, tempo 2 mySong divide o tempo das notas por 2, acelerando a música, reduzindo pela metade o tempo de execução da música. Por outro lado, tempo (1/2) mySong desacelera a música pois multiplica por 2 cada nota, duplicando o tempo de execução. 
+ 
+ * Para tocar músicas diferentes em paralelo
+ 
+ ```
+ chord   :: [Music a] -> Music a
+ ```
+  
+A função chord 
+
+ ## Exemplo e compilação
   Tomando como exemplo o código do arquivo "teste.hs", a compilação e teste da composição "secondSong" pode ser dada da seguinte forma:
   
   * Importando o arquivo no GHCI:
@@ -81,4 +103,5 @@ Dó → c  /  Ré → d  /  Mi → e  /  Fá → f  /  Sol → g  /  Lá → a  
   ```
   
   ## Reprodução de MIDI com Euterpea
+  
   
