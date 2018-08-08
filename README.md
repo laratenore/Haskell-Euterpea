@@ -141,4 +141,14 @@ A função invert é usada para inverter a ordem das notas de forma que Dó cont
   
   ## Reprodução de MIDI com Euterpea
   
+  Além de composições, a biblioteca Euterpea pode ser usada para leitura, reprodução e criação de arquivos MIDI. Arquivos MIDI são arquivos no formato Musical Instrument Digital Interface, ou seja, não são arquivos de áudio, mas sim um protocolo de comunicação entre um instrumento e um módulo ou um hardware que não contem dados de audio, e sim instruções de como produzi-lo. 
   
+ Usando o arquivo midiTest.hs é possível reproduzir um arquivo MIDI no GHCI usando os seguintes comandos:
+ 
+ ```
+ ghci midiTest.hs
+ ```
+ ```
+playFromPath “dir/dir/nome_do_midi.mid”
+ ```
+ O primeiro comando é usado para que o ghci leia o arquivo que você usará para reproduzir o MIDI. O segundo comando é para enviar para o algoritmo o MIDI que você quer que seja reproduzido. Neste comando, playFilePath é o nome de uma função do algoritmos e a string é o caminho do diretório onde se encontra o seu arquivo MIDI seguido pelo nome do arquivo MIDI.
