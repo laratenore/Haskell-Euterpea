@@ -165,15 +165,15 @@ playFromPath
   play :: Performable a => Music a → IO ()
   ```
    ```
- fromMidi :: ????? -> ?????
+  fromMidi :: Codec.Midi.Midi -> Music1
   ```
 
 ### De composição para MIDI
 
-  Como visto no ultimo topico, um dos passos para que Haskell consiga reproduzir um MIDI é o uso da função fromMidi que transforma o arquivo em uma composição. O caminho inverso também é possível com a biblioteca Euterpea com o uso da função "writeMidi"
+  Como visto no ultimo topico, um dos passos para que Haskell consiga reproduzir um MIDI é o uso da função fromMidi que transforma o arquivo em uma composição. O caminho inverso também é possível com a biblioteca Euterpea com o uso da função "writeMidi":
   
   ```
-  writeMidi :: ?????? -> ??????
+  writeMidi :: ToMusic1 a => FilePath -> Music a -> IO ()
   ```
  
- Dessa forma, se temos a composição mySong, writeMidi "dir1/dir2/mySongMIDI.mid" mySong transforma a composição em um arquivo MIDI criado no diretório "dir1/dir2" com o nome mySongMIDI.mid.
+ Dessa forma, writeMidi recebe um caminho para um diretorio (FilePath) e uma composição do tipo Music a. Se temos a composição mySong, writeMidi "dir1/dir2/mySongMIDI.mid" mySong transforma a composição em um arquivo MIDI criado no diretório "dir1/dir2" com o nome "mySongMIDI.mid".
