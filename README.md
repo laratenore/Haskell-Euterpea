@@ -105,7 +105,7 @@ A função invert é usada para inverter a ordem das notas de forma que Dó cont
   :l teste.hs
   ```
   
-  * Tocar a música "secondSong":
+  * Tocar a música "mySong":
   ```
   play mySong
   ```
@@ -130,7 +130,7 @@ A função invert é usada para inverter a ordem das notas de forma que Dó cont
   
   * Tocar uma lista de composições em paralelo
   ```
-  play  chord [mySong1, mySong2] 
+  play  (chord [mySong1, mySong2])
   ```
   
   * Tocar uma música com as notas invertidas de acordo com os tons:
@@ -151,7 +151,7 @@ A função invert é usada para inverter a ordem das notas de forma que Dó cont
  ```
 playFromPath
  ```
- O primeiro comando é usado para que o ghci leia o arquivo que você usará para reproduzir o MIDI. O segundo comando é para enviar para o algoritmo o MIDI que você quer que seja reproduzido. Neste comando, playFilePath é o nome de uma função do algoritmos que solicita o caminho do diretório onde se encontra o seu arquivo MIDI seguido pelo nome do arquivo MIDI.
+ O primeiro comando é usado para que o GHCI leia o arquivo que você usará para reproduzir o MIDI. O segundo comando é para enviar para o algoritmo o MIDI que você quer que seja reproduzido. Neste comando, playFilePath é o nome de uma função do algoritmos que solicita o caminho do diretório onde se encontra o seu arquivo MIDI seguido pelo nome do arquivo MIDI.
  
   Antes de ser reproduzido, o arquivo MIDI precisa ser tratado devido a forma como entra no programa. Por ser uma entrada externa ao programa, o arquivo entra com o tipo IO. Além disso, o arquivo de entrada pode ser tanto um MIDI quanto uma string (arquivo de texto), então o arquivo também entra com o tipo Either de forma que Right representa o arquivo MIDI e Left uma string (txt). No segundo caso, o programa retorna um erro pois a inteção é reproduzir apenas caso Right. 
   
