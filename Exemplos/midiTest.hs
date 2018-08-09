@@ -6,7 +6,6 @@ playFromMidi a = a >>= playMidi'
     where
         playMidi' :: (Either String Midi) -> IO ()
         playMidi' (Right a) = play $ fromMidi a
-        playMidi' (Right a) = play $ (fromMidi a)
         playMidi' (Left a)  = error a
 
 playFromPath :: IO ()
