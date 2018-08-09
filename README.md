@@ -162,7 +162,7 @@ playFromPath
   PlayFromMidi retorna apenas a saída em formato de som (IO) que ocorre devido a combinação da função play com a função fromMidi aplicada no arquivo de entrada. A função fromMidi transforma o arquivo de entrada para um texto no formato de composição, com notas, intervalos, rests e instrumentos, ou seja, no formato Music1 que pode ser reproduzido com play, como vimos na sessão anterior. Abaixo apresentamos a definição de play e de fromMidi para melhor compreensão:
   
   ```
-  play :: ????? -> ?????
+  play :: Performable a => Music a → IO ()
   ```
    ```
  fromMidi :: ????? -> ?????
