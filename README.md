@@ -153,8 +153,12 @@ playFromPath
  ```
  O primeiro comando é usado para que o ghci leia o arquivo que você usará para reproduzir o MIDI. O segundo comando é para enviar para o algoritmo o MIDI que você quer que seja reproduzido. Neste comando, playFilePath é o nome de uma função do algoritmos que solicita o caminho do diretório onde se encontra o seu arquivo MIDI seguido pelo nome do arquivo MIDI.
  
-  Antes de ser reproduzido, o arquivo MIDI precisa ser tratado devido a forma como entra no programa. Por ser uma entrada externa ao programa, o arquivo entra com o tipo IO. Além disso, o arquivo de entrada pode ser tanto um MIDI quanto uma string (arquivo de texto), então o arquivo também entra com o tipo Either de forma que Right representa o arquivo MIDI e Left uma string (txt). No segundo caso, o programa retorna um erro pois a inteção é reproduzir apenas caso Right.
+  Antes de ser reproduzido, o arquivo MIDI precisa ser tratado devido a forma como entra no programa. Por ser uma entrada externa ao programa, o arquivo entra com o tipo IO. Além disso, o arquivo de entrada pode ser tanto um MIDI quanto uma string (arquivo de texto), então o arquivo também entra com o tipo Either de forma que Right representa o arquivo MIDI e Left uma string (txt). No segundo caso, o programa retorna um erro pois a inteção é reproduzir apenas caso Right. 
   
-  Para que o programa consiga reproduzir o arquivo, a função playFromMidi é usada para retirar o IO e o Either, retornando apenas a saída em formato de som (IO). Vale ressaltar que dentro de playFromMidi é usada a função fromMidi que passa o arquivo de entrada para um texto no formato de composição, com notas, intervalos, rests e instrumentos.
- 
+  Para que o programa consiga reproduzir o arquivo, a função playFromMidi é usada para retirar o IO e o Either. Esta função é defininda como:
+  ```
+  playFromMidi :: IO (Either String Midi) -> IO ()
+  ```
+  PlayFromMidi retorna apenas a saída em formato de som (IO) que ocorre devido a combinação da função play com a função fromMidi aplicada no arquivo de entrada. A função fromMidi transforma o arquivo de entrada para um texto no formato de composição, com notas, intervalos, rests e instrumentos, ou seja, no formato Music1 que pode ser reproduzido com play, como vimos na sessão anterior.
+
  
