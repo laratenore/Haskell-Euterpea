@@ -159,6 +159,21 @@ playFromPath
   ```
   playFromMidi :: IO (Either String Midi) -> IO ()
   ```
-  PlayFromMidi retorna apenas a saída em formato de som (IO) que ocorre devido a combinação da função play com a função fromMidi aplicada no arquivo de entrada. A função fromMidi transforma o arquivo de entrada para um texto no formato de composição, com notas, intervalos, rests e instrumentos, ou seja, no formato Music1 que pode ser reproduzido com play, como vimos na sessão anterior.
+  PlayFromMidi retorna apenas a saída em formato de som (IO) que ocorre devido a combinação da função play com a função fromMidi aplicada no arquivo de entrada. A função fromMidi transforma o arquivo de entrada para um texto no formato de composição, com notas, intervalos, rests e instrumentos, ou seja, no formato Music1 que pode ser reproduzido com play, como vimos na sessão anterior. Abaixo apresentamos a definição de play e de fromMidi para melhor compreensão:
+  
+  ```
+  play :: ????? -> ?????
+  ```
+   ```
+ fromMidi :: ????? -> ?????
+  ```
 
+### De composição para MIDI
+
+  Como visto no ultimo topico, um dos passos para que Haskell consiga reproduzir um MIDI é o uso da função fromMidi que transforma o arquivo em uma composição. O caminho inverso também é possível com a biblioteca Euterpea com o uso da função "writeMidi"
+  
+  ```
+  writeMidi :: ?????? -> ??????
+  ```
  
+ Dessa forma, se temos a composição mySong, writeMidi "dir1/dir2/mySongMIDI.mid" mySong transforma a composição em um arquivo MIDI criado no diretório "dir1/dir2" com o nome mySongMIDI.mid.
