@@ -139,7 +139,7 @@ A função invert é usada para inverter a ordem das notas de forma que Dó cont
   (play . invert) mySong
   ```
   
-  ## Reprodução de MIDI com Euterpea
+  ## Usando arquivos MIDI com Euterpea
   
   Além de composições, a biblioteca Euterpea pode ser usada para leitura, reprodução e criação de arquivos MIDI. Arquivos MIDI são arquivos no formato Musical Instrument Digital Interface, ou seja, não são arquivos de áudio, mas sim um protocolo de comunicação entre um instrumento e um módulo ou um hardware que não contem dados de audio, e sim instruções de como produzi-lo. 
   
@@ -149,6 +149,31 @@ A função invert é usada para inverter a ordem das notas de forma que Dó cont
  ghci midiTest.hs
  ```
  ```
-playFromPath “dir/dir/nome_do_midi.mid”
+playFromPath
  ```
- O primeiro comando é usado para que o ghci leia o arquivo que você usará para reproduzir o MIDI. O segundo comando é para enviar para o algoritmo o MIDI que você quer que seja reproduzido. Neste comando, playFilePath é o nome de uma função do algoritmos e a string é o caminho do diretório onde se encontra o seu arquivo MIDI seguido pelo nome do arquivo MIDI.
+ O primeiro comando é usado para que o ghci leia o arquivo que você usará para reproduzir o MIDI. O segundo comando é para enviar para o algoritmo o MIDI que você quer que seja reproduzido. Neste comando, playFilePath é o nome de uma função do algoritmos que solicita o caminho do diretório onde se encontra o seu arquivo MIDI seguido pelo nome do arquivo MIDI.
+ 
+  Antes de ser reproduzido, o arquivo MIDI precisa ser tratado devido a forma como entra no programa. Por ser uma entrada externa ao programa, o arquivo entra com o tipo IO. Além disso, o arquivo de entrada pode ser tanto um MIDI quanto uma string (arquivo de texto), então o arquivo também entra com o tipo Either de forma que Right representa o arquivo MIDI e Left uma string (txt). No segundo caso, o programa retorna um erro pois a inteção é reproduzir apenas caso Right. 
+  
+  Para que o programa consiga reproduzir o arquivo, a função playFromMidi é usada para retirar o IO e o Either. Esta função é defininda como:
+  ```
+  playFromMidi :: IO (Either String Midi) -> IO ()
+  ```
+  PlayFromMidi retorna apenas a saída em formato de som (IO) que ocorre devido a combinação da função play com a função fromMidi aplicada no arquivo de entrada. A função fromMidi transforma o arquivo de entrada para um texto no formato de composição, com notas, intervalos, rests e instrumentos, ou seja, no formato Music1 que pode ser reproduzido com play, como vimos na sessão anterior. Abaixo apresentamos a definição de play e de fromMidi para melhor compreensão:
+  
+  ```
+  play :: Performable a => Music a → IO ()
+  ```
+   ```
+ fromMidi :: ????? -> ?????
+  ```
+
+### De composição para MIDI
+
+  Como visto no ultimo topico, um dos passos para que Haskell consiga reproduzir um MIDI é o uso da função fromMidi que transforma o arquivo em uma composição. O caminho inverso também é possível com a biblioteca Euterpea com o uso da função "writeMidi"
+  
+  ```
+  writeMidi :: ?????? -> ??????
+  ```
+ 
+ Dessa forma, se temos a composição mySong, writeMidi "dir1/dir2/mySongMIDI.mid" mySong transforma a composição em um arquivo MIDI criado no diretório "dir1/dir2" com o nome mySongMIDI.mid.
