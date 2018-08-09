@@ -105,38 +105,38 @@ A função invert é usada para inverter a ordem das notas de forma que Dó cont
   :l teste.hs
   ```
   
-  * Tocar a música "mySong":
+  * Tocar a música "despacito":
   ```
-  play mySong
+  play despacito
   ```
   
   * Tocar música com outro instrumento (funciona apenas se o instrumento não está já definido na composição):
   
   ```
-  (play . Modify(Instrument Ocarina)) mySong
+  (play . Modify(Instrument Ocarina)) despacito
   ```
   * Tocar a música de trás para frente:
   ```
-  (play . retro) mySong
+  (play . retro) despacito
   ```
   
   * Acelerar ou desacelerar uma música, respectivamente:
   ```
-  (play . tempo (2) ) mySong
+  (play . tempo (2) ) despacito
   ```
   ```
-  (play . tempo (1/2) ) mySong
+  (play . tempo (1/2) ) despacito
   ```
   
   * Tocar uma lista de composições em paralelo
   ```
-  play  (chord [mySong1, mySong2])
+  play  (chord [doReMiFa, despacito])
   ```
   
   * Tocar uma música com as notas invertidas de acordo com os tons:
   
   ```
-  (play . invert) mySong
+  (play . invert) despacito
   ```
   
   ## Usando arquivos MIDI com Euterpea
