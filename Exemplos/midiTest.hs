@@ -1,15 +1,14 @@
 import Euterpea
 import Codec.Midi
-                   
-playFromMidi :: IO (Either String Midi) -> IO ()
-playFromMidi a = a >>= playMidi'
-    where
-        playMidi' :: (Either String Midi) -> IO ()
-        playMidi' (Right a) = play $ fromMidi a
-        playMidi' (Left a)  = error a
+                                      
+playFromMidi :: (Music1 -> Music1) -> IO (Either String Midi) -> IO ()
+playFromMidi f a = a >>= playMidi' f
 
-playFromPath :: IO ()
-playFromPath = do putStr "Digite o diretorio do arquivo: " 
-                  cs <- getLine
-                  playFromMidi $ importFile cs
-                  
+playMidi' :: (Music1 -> Music1) -> (Either String Midi) -> IO ()
+playMidi' f (Right b) = play (f (fromMidi b))
+playMidi' f (Left b)  = error b
+
+playFromPath :: (Music1 -> Music1) -> IO ()
+playFromPath f = do putStr "Digite o diretorio do arquivo: " 
+                    cs <- getLine
+                    playFromMidi f (importFile cs)
