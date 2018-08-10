@@ -149,7 +149,7 @@ A função invert é usada para inverter a ordem das notas de forma que Dó cont
  ghci midiTest.hs
  ```
  ```
-playFromPath
+playFromPath (id.funcao)
  ```
  O primeiro comando é usado para que o GHCI leia o arquivo que você usará para reproduzir o MIDI. O segundo comando é para enviar para o algoritmo o MIDI que você quer que seja reproduzido. Neste comando, playFilePath é o nome de uma função do algoritmos que solicita o caminho do diretório onde se encontra o seu arquivo MIDI seguido pelo nome do arquivo MIDI.
  
