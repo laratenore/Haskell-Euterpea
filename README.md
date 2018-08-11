@@ -257,5 +257,5 @@ adicionaPausas :: Music1 -> Int -> [Music1]
   Em principalCompleta, adicionaPausas é acionada com a música principalSolo e com o inteiro 3 (representando os três violinos). Como o retorno de principalSolo é um vetor de músicas, usamos a função chord para concatenar as músicas com o operador :=: entre elas.
 
 
-Assim, canonInD é a reprodução paralela de acompanhamentoCompleto (bass) e principalCompleta (violinos). Assim, ao compilar o arquivo, com ```play canonInD``` é possível ouvir a reprodução da música completa.
+Assim, canonInD é a reprodução paralela de acompanhamentoCompleto (bass) e principalCompleta (violinos). Ao compilar o arquivo, com ```play canonInD``` é possível ouvir a reprodução da música completa.
 
