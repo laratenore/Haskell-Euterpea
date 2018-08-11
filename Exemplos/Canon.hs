@@ -22,7 +22,7 @@ pausa = (rest 3)
 -- Gera o vetor com a música principal completa
 adicionaPausas :: Music1 -> Int -> [Music1]
 adicionaPausas m 0 = []
-adicionaPausas m n= newM:principalCompleta newM (n - 1)
+adicionaPausas m n= newM:adicionaPausas newM (n - 1)
     where
         newM = (pausa:+:pausa:+:m)
 
@@ -30,4 +30,7 @@ adicionaPausas m n= newM:principalCompleta newM (n - 1)
 acompanhamentoCompleto = times 15 acompanhamentoSemRepeticao
 
 -- Música principal completa
-principalCompleta = adicionaPausas principalSolo 3
+principalCompleta = chord $ adicionaPausas principalSolo 3
+
+-- Canon in D
+canonInD = acompanhamentoCompleto:=:principalCompleta
