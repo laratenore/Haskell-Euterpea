@@ -78,6 +78,14 @@ Dó → c  /  Ré → d  /  Mi → e  /  Fá → f  /  Sol → g  /  Lá → a  
   ```
   
  Dessa forma, tempo recebe um número que divide a duração de cada nota na música. Assim, tempo 2 mySong divide o tempo das notas por 2, acelerando a música, reduzindo pela metade o tempo de execução da música. Por outro lado, tempo (1/2) mySong desacelera a música pois multiplica por 2 cada nota, duplicando o tempo de execução. 
+ * Para tocar músicas ou notas diferentes em sequência
+ 
+ ```
+ line :: [Music a ] → Music a
+ line [ ]      = rest 0
+ line (m : ms) = m :+: line ms
+ ```
+ A função line recebe uma lista de notas ou de composições e concatenas ela usando o operador :+: de forma a reproduzir cada item da lista em sequência. Dessa forma, line [m1,m2,m3] reproduz m1 :+: m2 :+: m3.
  
  * Para tocar músicas diferentes em paralelo
  
@@ -181,3 +189,42 @@ playFromPath (id.funcao)
   ```
  
  Dessa forma, writeMidi recebe um caminho para um diretorio (FilePath) e uma composição do tipo Music a. Se temos a composição mySong, writeMidi "dir1/dir2/mySongMIDI.mid" mySong transforma a composição em um arquivo MIDI criado no diretório "dir1/dir2" com o nome "mySongMIDI.mid".
+ 
+ 
+## Exemplo: Canon in D
+
+No arquivo "Canon.hs" apresentamos uma maneira de reproduzir a música Canon in D de Johann Pachelbel. Está música tem uma característica peculiar ser composta pelo mesmo conjunto de notas tocadas por diferentes instrumentos em tempos diferentes (para entender melhor, vise a imagem "CanonInD_paritura.jpeg".
+
+O conjunto de notas que se repete pode ser extraido do arquivo MIDI "Canon.mid". Para extrair o arquivo em formato txt criamos o algoritmo "MidiParaMusica1TXT.hs". Neste algoritmo, a função writeMusicInTxt é definida tal que:
+
+```
+writeMusicInTxt :: String -> String -> IO ()
+```
+
+Desta forma, writeMusicInTxt recebe duas strings: a primeira é o diretorio onde se encontra o midi e a segunda é o nome do arquivo txt de saída com o conjunto de notas base da música. Nesta função, como está sendo usado um MIDI, para passá-lo para uma string e gravá-lo em um arquivo de texto, retiramos com o operador <$> o IO e com a função removeEither o Either (como explicado anteriormente). Assim, ao final da execução deste algoritmo, obtivemos um arquivo txt com o conjunto de notas base da música Canon in D.
+
+No arquivo "textoMusica.hs" criamos a função musicaPrincipal que retorna o texto extraido do MIDI.
+
+Por fim, no arquivo "Canon.hs" temos 5 partes importantes para a reprodução da música:
+
+* principalSolo
+  O arquivo MIDI que foi extraido para txt apresentava resíduos nas extremidades do texto de outras notas que não pertence ao conjunto base de notas da música. Portanto, principalSolo remove este resíduo com a função remove e com a função retro. Além disso, também desacelera a música para que o tempo combine com as outras notas base.
+  
+* acompanhamentoSemRepeticao
+Em acompanhamentoSemRepeticao escrevemos as 8 notas (apresentadas como Bass na imagem "CanonInD_partitura.jpeg"). A essas notas aplicamos o intrumento "VoiceOohs" e as passamos para o tipo Music1 com a função toMusic1 para ser compatível a música principal extraida do MIDI. Esta parte também foi desacelerada em 1/3 deu seu tempo.
+
+* acompanhamentoCompleto
+Em acompanhamentoCompleto, armazenamos 15 vezes a composição de acompanhamentoSemRepetição para representar o bass da música.
+
+* adicionaPausas
+```
+adicionaPausas :: Music1 -> Int -> [Music1]
+```
+  Esta função pode ser considerada mais importante do algoritmo por ser quem monta a defasagem dos instrumentos. Esta função recebe um tipo música e um inteiro que representa o numero de vezes que as pausas serão adicionadas. A cada chama recursiva, a função concatena em um vetor duas pausas concatenadas com a música que recebe (pausa :+: pausa :+: m). O número n representa o número de instrumentos que tocam além da base. No caso do nosso exemplo, este número é 3 pois estamos tomando como base três violinos. Vale ressaltar que a pausa tem o valor rest 3.
+
+* principalCompleta
+
+  Em principalCompleta, adicionaPausas é acionada com a música principalSolo e com o inteiro 3 (representando os três violinos). Como o retorno de principalSolo é um vetor de músicas, usamos a função chord para concatenar as músicas com o operador :=: entre elas.
+
+
+Assim, canonInD é a reprodução paralela de acompanhamentoCompleto (bass) e principalCompleta (violinos).
