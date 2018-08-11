@@ -172,10 +172,10 @@ A função invert é usada para inverter a ordem das notas de forma que Dó cont
   
   Além de composições, a biblioteca Euterpea pode ser usada para leitura, reprodução e criação de arquivos MIDI. Arquivos MIDI são arquivos no formato Musical Instrument Digital Interface, ou seja, não são arquivos de áudio, mas sim um protocolo de comunicação entre um instrumento e um módulo ou um hardware que não contem dados de audio, e sim instruções de como produzi-lo. 
   
- Usando o arquivo midiTest.hs é possível reproduzir um arquivo MIDI no GHCI usando os seguintes comandos:
+ Usando o arquivo Exemplo2.hs é possível reproduzir um arquivo MIDI no GHCI usando os seguintes comandos:
  
  ```
- ghci midiTest.hs
+ ghci Exemplo2.hs
  ```
  ```
  playFromPath (id.funcao)
@@ -223,7 +223,7 @@ A função invert é usada para inverter a ordem das notas de forma que Dó cont
 No arquivo "Canon.hs" apresentamos uma maneira de reproduzir a música Canon in D de Johann Pachelbel. Esta música tem uma característica interessante por ser composta pela mesma música tocada por 3 violinos em tempos diferentes e um acompanhamento que repete uma mesma sequência de 8 notas durante toda a música.
 ![Figura1](https://upload.wikimedia.org/wikipedia/commons/1/16/Pachelbel-canon-colors.png? "Imagem 1")
 
-O acompanhamento foi escrito composto manualmente no arquivo, enquanto a música principal foi extraido do arquivo MIDI "Canon.mid", que tem apenas um violino tocando e um pedaço do acompanhamento no começo e no final. Para extrair o arquivo em formato txt criamos o algoritmo "MidiParaMusica1TXT.hs". Neste algoritmo, a função writeMusicInTxt é definida tal que:
+O acompanhamento foi escrito composto manualmente no arquivo, enquanto a música principal foi extraido do arquivo MIDI "Canon.mid", que tem apenas um violino tocando e um pedaço do acompanhamento no começo e no final (para melhor entendimento, toque o arquivo "Canon.mid" utilizando o exemplo anterior). Para extrair o arquivo em formato txt criamos o algoritmo "MidiParaMusica1TXT.hs". Neste algoritmo, a função writeMusicInTxt é definida tal que:
 
 ```
 writeMusicInTxt :: String -> String -> IO ()
