@@ -221,7 +221,7 @@ A função invert é usada para inverter a ordem das notas de forma que Dó cont
 ## Exemplo: Canon in D
 
 No arquivo "Canon.hs" apresentamos uma maneira de reproduzir a música Canon in D de Johann Pachelbel. Está música tem uma característica peculiar ser composta pelo mesmo conjunto de notas tocadas por diferentes instrumentos em tempos diferentes (para entender melhor, vise a imagem "CanonInD_paritura.jpeg".
-![alt text](https://upload.wikimedia.org/wikipedia/commons/1/16/Pachelbel-canon-colors.png)
+![Figura1](https://upload.wikimedia.org/wikipedia/commons/1/16/Pachelbel-canon-colors.png? "Fonte: Wikipedia")
 
 O conjunto de notas que se repete pode ser extraido do arquivo MIDI "Canon.mid". Para extrair o arquivo em formato txt criamos o algoritmo "MidiParaMusica1TXT.hs". Neste algoritmo, a função writeMusicInTxt é definida tal que:
 
