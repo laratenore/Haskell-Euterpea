@@ -21,7 +21,7 @@ cabal install Euterpea
 
 ## Composição de músicas
 
-  Com a biblioteca Euterpea é possível escrever músicas baseadas em notas simples. Para trabalhar com este tipo de composição é necessário ter conhecimento dos três conceitos básicas principais explicados abaixo:
+  Com a biblioteca Euterpea é possível escrever músicas baseadas em notas simples. Para trabalhar com este tipo de composição é necessário ter conhecimento dos três conceitos básicos principais explicados abaixo:
 
 * Tratando-se de teoria musical, uma nota é composta por um Pitch (tom ou oitava) e por uma duration (duração). Uma nota na biblioteca é do tipo Music Pitch.
 
@@ -32,9 +32,9 @@ note :: Dur → Pitch → Music Pitch
 rest :: Dur → Music Pitch
 ```
 
-  Assim, note d p pode ser lido como uma nota de duração d e oitava p. Da mesma forma, rest d é uma pausa de duração d.
+  Assim, note p d pode ser lido como uma nota de duração d e oitava p. Da mesma forma, rest d é uma pausa de duração d.
 
-* Para composição de músicas, combinar notas usa-se os seguintes operadores:
+* Para composição de músicas, ao combinar notas usa-se os seguintes operadores:
  ``` 
  (:+:) :: Music Pitch → Music Pitch → Music Pitch
  (:=:) :: Music Pitch → Music Pitch → Music Pitch
@@ -82,7 +82,7 @@ import Euterpea
  * Para tocar músicas ou notas diferentes em sequência
  
  ```
- line :: [Music a ] → Music a
+ line :: [Music a] → Music a
  line [ ]      = rest 0
  line (m : ms) = m :+: line ms
  ```
@@ -111,7 +111,7 @@ A função invert é usada para inverter a ordem das notas de forma que Dó cont
   ```
   remove :: Dur -> Music a -> Music a
   ```
-   A função remove recebe um número e uma música. Este número é correspondete ao tempo da música que desaja remover. Este tempo toma como referencia o inicio da música.
+   A função remove recebe um número e uma música. Este número é correspondete ao tempo da música que deseja remover. Este tempo toma como referencia o inicio da música.
    
    * Cortar uma parte da música:
    
@@ -119,19 +119,19 @@ A função invert é usada para inverter a ordem das notas de forma que Dó cont
    cut :: Dur -> Music a -> Music a
    ```
    
-   A função cut recorta uma duração da música a partir do inicio. Assim, ```cut 8 mySong``` reproduz os 8 segundos iniciais de mySong.
+   A função cut recorta uma duração da música a partir do inicio. Assim, ```cut 8 mySong``` retorna os 8 segundos iniciais de mySong.
 
  ## Exemplo e compilação
-  Tomando como exemplo o código do arquivo "teste.hs", a compilação e teste da composição "secondSong" pode ser dada da seguinte forma:
+  Tomando como exemplo o código do arquivo "Exemplo1.hs", a compilação e teste da composição "secondSong" pode ser dada da seguinte forma:
   
   * Importando o arquivo no GHCI:
   ```
-  ghci teste.hs
+  ghci Exemplo1.hs
   ```
   ou 
   ```
   ghci 
-  :l teste.hs
+  :l Exemplo1.hs
   ```
   
   * Tocar a música "despacito":
@@ -180,9 +180,9 @@ A função invert é usada para inverter a ordem das notas de forma que Dó cont
  ```
  playFromPath (id.funcao)
  ```
- O primeiro comando é usado para que o GHCI leia o arquivo que você usará para reproduzir o MIDI. O segundo comando é para enviar para o algoritmo o MIDI que você quer que seja reproduzido junto a função que deseja aplicar ao MIDI. Neste comando, playFilePath é o nome de uma função do algoritmos que solicita o caminho do diretório onde se encontra o seu arquivo MIDI seguido pelo nome do arquivo MIDI. Caso queira reproduzir o MIDI sem aplicar nenhuma função, basta chamar ```playFromPath id ``` e escrever o diretorio e nome do arquivo quando solicitado (ex: dir1/dir2/nome_do_midi.mid).
+ O primeiro comando é usado para que o GHCI leia o arquivo que você usará para reproduzir o MIDI. O segundo comando é para enviar para o algoritmo o MIDI que você quer que seja reproduzido junto a função que deseja aplicar ao MIDI. Neste comando, playFilePath é o nome de uma função do algoritmo que solicita o caminho do diretório onde se encontra o seu arquivo MIDI seguido pelo nome do arquivo MIDI. Caso queira reproduzir o MIDI sem aplicar nenhuma função, basta chamar ```playFromPath id ``` e escrever o diretorio e nome do arquivo quando solicitado (ex: dir1/dir2/nome_do_midi.mid).
  
-  Antes de ser reproduzido, o arquivo MIDI precisa ser tratado devido a forma como entra no programa. Por ser uma entrada externa ao programa, o arquivo entra com o tipo IO. Além disso, o arquivo de entrada pode ser tanto um MIDI quanto uma string (arquivo de texto), então o arquivo também entra com o tipo Either de forma que Right representa o arquivo MIDI e Left uma string (txt). No segundo caso, o programa retorna um erro pois a inteção é reproduzir apenas caso Right. 
+  Antes de ser reproduzido, o arquivo MIDI precisa ser tratado devido a forma como entra no programa. Por ser uma entrada externa ao programa, o arquivo entra com o tipo IO. Além disso, o arquivo de entrada pode ser tanto um MIDI quanto uma string (arquivo de texto), então o arquivo também entra com o tipo Either de forma que Right representa o arquivo MIDI e Left uma string (txt). No segundo caso, o programa retorna um erro pois a intenção é reproduzir apenas no caso Right. 
   
   Para que o programa consiga reproduzir o arquivo, a função playFromMidi é usada para retirar o IO e o Either. Esta função é defininda como:
   ```
@@ -198,7 +198,7 @@ A função invert é usada para inverter a ordem das notas de forma que Dó cont
   ```
  ## Modificando Instrumento de MIDI
  
- Como dito anteriormente, a função ```Modify (Instrument nome_do_instumento)``` não pode ser usada em músicas que já tem instrumentos definidos. Como todos os MIDIs já possuem um ou mais instrumentos, mas modificá-los existe a função changeInstrument:
+ Como dito anteriormente, a função ```Modify (Instrument nome_do_instumento)``` não pode ser usada em músicas que já tem instrumentos definidos. Como todos os MIDIs já possuem um ou mais instrumentos, para modificá-los existe a função changeInstrument:
  
  ```
  changeInstrument :: InstrumentName -> Music a -> Music a
@@ -208,7 +208,7 @@ A função invert é usada para inverter a ordem das notas de forma que Dó cont
  
 ### De composição para MIDI
 
-  Como visto no ultimo topico, um dos passos para que Haskell consiga reproduzir um MIDI é o uso da função fromMidi que transforma o arquivo em uma composição. O caminho inverso também é possível com a biblioteca Euterpea com o uso da função "writeMidi":
+  Como visto no ultimo tópico, um dos passos para que o Haskell consiga reproduzir um MIDI é o uso da função fromMidi que transforma o arquivo em uma composição. O caminho inverso também é possível com o uso da função "writeMidi":
   
   
   ```
@@ -221,6 +221,7 @@ A função invert é usada para inverter a ordem das notas de forma que Dó cont
 ## Exemplo: Canon in D
 
 No arquivo "Canon.hs" apresentamos uma maneira de reproduzir a música Canon in D de Johann Pachelbel. Está música tem uma característica peculiar ser composta pelo mesmo conjunto de notas tocadas por diferentes instrumentos em tempos diferentes (para entender melhor, vise a imagem "CanonInD_paritura.jpeg".
+![alt text](https://upload.wikimedia.org/wikipedia/commons/1/16/Pachelbel-canon-colors.png)
 
 O conjunto de notas que se repete pode ser extraido do arquivo MIDI "Canon.mid". Para extrair o arquivo em formato txt criamos o algoritmo "MidiParaMusica1TXT.hs". Neste algoritmo, a função writeMusicInTxt é definida tal que:
 
