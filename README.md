@@ -104,6 +104,22 @@ invert :: Music Pitch -> Music Pitch
 ```
 A função invert é usada para inverter a ordem das notas de forma que Dó continua como Dó, Ré passa a ser interpretado como Si, Mi passa a ser intepretado como Lá, e assim por diante, ou seja, inverte a ordem original das notas. Essa inversão leva em consideração o número de tons entre duas notas. Dessa forma, se invert receber apenas uma nota, retornará está mesma nota, porém, se invert recebe duas notas que possuem x tons entre elas, a segunda nota é convertida para a nota que se encontra a x tons anteriores a primeira nota, usada como referência pela função.
 
+  
+  * Para remover uma duração inicial da música:
+ 
+  ```
+  remove :: Dur -> Music a -> Music a
+  ```
+   A função remove recebe um número e uma música. Este número é correspondete ao tempo da música que desaja remover. Este tempo toma como referencia o inicio da música.
+   
+   * Cortar uma parte da música:
+   
+   ```
+   cut :: Dur -> Music a -> Music a
+   ```
+   
+   A função cut recorta uma duração da música a partir do inicio. Assim, ```cut 8 mySong``` reproduz os 8 segundos iniciais de mySong.
+
  ## Exemplo e compilação
   Tomando como exemplo o código do arquivo "teste.hs", a compilação e teste da composição "secondSong" pode ser dada da seguinte forma:
   
@@ -161,7 +177,7 @@ A função invert é usada para inverter a ordem das notas de forma que Dó cont
  ghci midiTest.hs
  ```
  ```
-playFromPath (id.funcao)
+ playFromPath (id.funcao)
  ```
  O primeiro comando é usado para que o GHCI leia o arquivo que você usará para reproduzir o MIDI. O segundo comando é para enviar para o algoritmo o MIDI que você quer que seja reproduzido junto a função que deseja aplicar ao MIDI. Neste comando, playFilePath é o nome de uma função do algoritmos que solicita o caminho do diretório onde se encontra o seu arquivo MIDI seguido pelo nome do arquivo MIDI. Caso queira reproduzir o MIDI sem aplicar nenhuma função, basta chamar ```playFromPath id ``` e escrever o diretorio e nome do arquivo quando solicitado (ex: dir1/dir2/nome_do_midi.mid).
  
@@ -179,10 +195,20 @@ playFromPath (id.funcao)
    ```
   fromMidi :: Codec.Midi.Midi -> Music1
   ```
-
+ ## Modificando Instrumento de MIDI
+ 
+ Como dito anteriormente, a função ```Modify (Instrument nome_do_instumento)``` não pode ser usada em músicas que já tem instrumentos definidos. Como todos os MIDIs já possuem um ou mais instrumentos, mas modificá-los existe a função changeInstrument:
+ 
+ ```
+ changeInstrument :: InstrumentName -> Music a -> Music a
+ ```
+ 
+ Dessa forma, ```playFromPath (id.changeInstrument Ocarina)``` toca a música indicada pelo diretório no instrumento Ocarina.
+ 
 ### De composição para MIDI
 
   Como visto no ultimo topico, um dos passos para que Haskell consiga reproduzir um MIDI é o uso da função fromMidi que transforma o arquivo em uma composição. O caminho inverso também é possível com a biblioteca Euterpea com o uso da função "writeMidi":
+  
   
   ```
   writeMidi :: ToMusic1 a => FilePath -> Music a -> IO ()
@@ -207,16 +233,20 @@ No arquivo "textoMusica.hs" criamos a função musicaPrincipal que retorna o tex
 
 Por fim, no arquivo "Canon.hs" temos 5 partes importantes para a reprodução da música:
 
-* principalSolo
+* principalSolo:
+
   O arquivo MIDI que foi extraido para txt apresentava resíduos nas extremidades do texto de outras notas que não pertence ao conjunto base de notas da música. Portanto, principalSolo remove este resíduo com a função remove e com a função retro. Além disso, também desacelera a música para que o tempo combine com as outras notas base.
   
-* acompanhamentoSemRepeticao
-Em acompanhamentoSemRepeticao escrevemos as 8 notas (apresentadas como Bass na imagem "CanonInD_partitura.jpeg"). A essas notas aplicamos o intrumento "VoiceOohs" e as passamos para o tipo Music1 com a função toMusic1 para ser compatível a música principal extraida do MIDI. Esta parte também foi desacelerada em 1/3 deu seu tempo.
+* acompanhamentoSemRepeticao:
 
-* acompanhamentoCompleto
-Em acompanhamentoCompleto, armazenamos 15 vezes a composição de acompanhamentoSemRepetição para representar o bass da música.
+  Em acompanhamentoSemRepeticao escrevemos as 8 notas (apresentadas como Bass na imagem "CanonInD_partitura.jpeg"). A essas notas aplicamos o intrumento "VoiceOohs" e as passamos para o tipo Music1 com a função toMusic1 para ser compatível a música principal extraida do MIDI. Esta parte também foi desacelerada em 1/3 deu seu tempo.
+
+* acompanhamentoCompleto:
+
+  Em acompanhamentoCompleto, armazenamos 15 vezes a composição de acompanhamentoSemRepetição para representar o bass da música.
 
 * adicionaPausas
+
 ```
 adicionaPausas :: Music1 -> Int -> [Music1]
 ```
@@ -227,4 +257,5 @@ adicionaPausas :: Music1 -> Int -> [Music1]
   Em principalCompleta, adicionaPausas é acionada com a música principalSolo e com o inteiro 3 (representando os três violinos). Como o retorno de principalSolo é um vetor de músicas, usamos a função chord para concatenar as músicas com o operador :=: entre elas.
 
 
-Assim, canonInD é a reprodução paralela de acompanhamentoCompleto (bass) e principalCompleta (violinos).
+Assim, canonInD é a reprodução paralela de acompanhamentoCompleto (bass) e principalCompleta (violinos). Assim, ao compilar o arquivo, com ```play canonInD``` é possível ouvir a reprodução da música completa.
+
