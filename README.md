@@ -220,10 +220,10 @@ A função invert é usada para inverter a ordem das notas de forma que Dó cont
  
 ## Exemplo: Canon in D
 
-No arquivo "Canon.hs" apresentamos uma maneira de reproduzir a música Canon in D de Johann Pachelbel. Está música tem uma característica peculiar ser composta pelo mesmo conjunto de notas tocadas por diferentes instrumentos em tempos diferentes (para entender melhor, vise a imagem "CanonInD_paritura.jpeg".
-![Figura1](https://upload.wikimedia.org/wikipedia/commons/1/16/Pachelbel-canon-colors.png? "Fonte: Wikipedia")
+No arquivo "Canon.hs" apresentamos uma maneira de reproduzir a música Canon in D de Johann Pachelbel. Esta música tem uma característica interessante por ser composta pela mesma música tocada por 3 violinos em tempos diferentes e um acompanhamento que repete uma mesma sequência de 8 notas durante toda a música.
+![Figura1](https://upload.wikimedia.org/wikipedia/commons/1/16/Pachelbel-canon-colors.png? "Imagem 1")
 
-O conjunto de notas que se repete pode ser extraido do arquivo MIDI "Canon.mid". Para extrair o arquivo em formato txt criamos o algoritmo "MidiParaMusica1TXT.hs". Neste algoritmo, a função writeMusicInTxt é definida tal que:
+O acompanhamento foi escrito composto manualmente no arquivo, enquanto a música principal foi extraido do arquivo MIDI "Canon.mid", que tem apenas um violino tocando e um pedaço do acompanhamento no começo e no final. Para extrair o arquivo em formato txt criamos o algoritmo "MidiParaMusica1TXT.hs". Neste algoritmo, a função writeMusicInTxt é definida tal que:
 
 ```
 writeMusicInTxt :: String -> String -> IO ()
@@ -237,27 +237,27 @@ Por fim, no arquivo "Canon.hs" temos 5 partes importantes para a reprodução da
 
 * principalSolo:
 
-  O arquivo MIDI que foi extraido para txt apresentava resíduos nas extremidades do texto de outras notas que não pertence ao conjunto base de notas da música. Portanto, principalSolo remove este resíduo com a função remove e com a função retro. Além disso, também desacelera a música para que o tempo combine com as outras notas base.
+  Para remover os resíduos do acompanhamento que estavam presente no MIDI, foram usadas as funções remove e retro, de forma que principalSolo retorna apenas a música sem acompanhamento. Além disso, também desacelera a música para que o tempo combine com o do acompanhamento.
   
 * acompanhamentoSemRepeticao:
 
-  Em acompanhamentoSemRepeticao escrevemos as 8 notas (apresentadas como Bass na imagem "CanonInD_partitura.jpeg"). A essas notas aplicamos o intrumento "VoiceOohs" e as passamos para o tipo Music1 com a função toMusic1 para ser compatível a música principal extraida do MIDI. Esta parte também foi desacelerada em 1/3 deu seu tempo.
+  Em acompanhamentoSemRepeticao escrevemos as 8 notas (apresentadas como Bass na imagem 1). A essas notas aplicamos o intrumento "VoiceOohs" e as passamos para o tipo Music1 com a função toMusic1 para ser compatível a música principal extraida do MIDI. Esta parte também foi desacelerada em 1/3 deu seu tempo.
 
 * acompanhamentoCompleto:
 
-  Em acompanhamentoCompleto, armazenamos 15 vezes a composição de acompanhamentoSemRepetição para representar o bass da música.
+  Em acompanhamentoCompleto, armazenamos 15 vezes a composição de acompanhamentoSemRepetição para representar o bass da música utilizando a função times.
 
 * adicionaPausas
 
 ```
 adicionaPausas :: Music1 -> Int -> [Music1]
 ```
-  Esta função pode ser considerada mais importante do algoritmo por ser quem monta a defasagem dos instrumentos. Esta função recebe um tipo música e um inteiro que representa o numero de vezes que as pausas serão adicionadas. A cada chama recursiva, a função concatena em um vetor duas pausas concatenadas com a música que recebe (pausa :+: pausa :+: m). O número n representa o número de instrumentos que tocam além da base. No caso do nosso exemplo, este número é 3 pois estamos tomando como base três violinos. Vale ressaltar que a pausa tem o valor rest 3.
+  Esta função pode ser considerada a mais importante do algoritmo por ser quem monta a defasagem dos instrumentos. Esta função recebe um tipo música e um inteiro que representa o numero de vezes que as pausas serão adicionadas. A cada chamada recursiva, a função concatena em um vetor duas pausas concatenadas com a música que recebe (pausa :+: pausa :+: m). O número n representa o número de instrumentos que tocam além da base. No caso do nosso exemplo, este número é 3 pois estamos tomando como base três violinos. Vale ressaltar que a pausa tem o valor rest 3.
 
 * principalCompleta
 
-  Em principalCompleta, adicionaPausas é acionada com a música principalSolo e com o inteiro 3 (representando os três violinos). Como o retorno de principalSolo é um vetor de músicas, usamos a função chord para concatenar as músicas com o operador :=: entre elas.
+  Em principalCompleta, adicionaPausas é acionada com a música principalSolo e com o inteiro 3 (representando os três violinos). Como o retorno de principalSolo é um vetor de músicas, usamos a função chord para paralelizar as música no vetor, neste caso, os 3 violinos defasados.
 
 
-Assim, canonInD é a reprodução paralela de acompanhamentoCompleto (bass) e principalCompleta (violinos). Ao compilar o arquivo, com ```play canonInD``` é possível ouvir a reprodução da música completa.
+Assim, canonInD é a reprodução paralela de acompanhamentoCompleto (bass) e principalCompleta (violinos). Ao compilar o arquivo, e chamando a função ```play canonInD``` é possível ouvir a reprodução da música completa.
 
