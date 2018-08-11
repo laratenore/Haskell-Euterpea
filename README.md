@@ -45,9 +45,10 @@ Vale ressaltar que as notas são convertidas da seguinte forma:
 
 Dó → c  /  Ré → d  /  Mi → e  /  Fá → f  /  Sol → g  /  Lá → a  /  Si → b
 
-  Por fim, a biblioteca Euterpea usa como instrumento default o piano, mas é possível escolher um instrumento. É possível obter a lista de instrumentos possíveis pelo GHCI usando o seguinte comando:
+  Por fim, a biblioteca Euterpea usa como instrumento default o piano, mas é possível escolher um instrumento. É possível obter a lista de instrumentos possíveis pelo GHCI usando os seguintes comandos:
 
 ```
+import Euterpea
 :i InstrumentName
  ```
  ### Modificar instrumento
