@@ -50,17 +50,19 @@ Dó → c  /  Ré → d  /  Mi → e  /  Fá → f  /  Sol → g  /  Lá → a  
 ```
 :i InstrumentName
  ```
- ### Funções
+ ### Modificar instrumento
  
-   * Para definir o instrumento é necessário usar a função "Modify" junto ao nome do instrumento, da seguinte forma:
+   * Para definir o instrumento é necessário usar o construtor "Modify" junto ao nome do instrumento, da seguinte forma:
  ```
  Modify :: Control -> Music a -> Music a
  ```
- Na definição da função, Modify recebe uma entrada do tipo Control que no caso da biblioteca Euterpea é a Instrument InstrumentName
+ Na definição de Modify, o construtor recebe uma entrada do tipo Control que no caso da biblioteca Euterpea é a Instrument InstrumentName
   ```
  mySong = Modify(Instrument  nome_do_instrumento)(composição)
   ```
-  É possível definir o instrumento no algoritmo diretamente na composição ou ao compilar a composição, como veremos em exemplos abaixo.
+  Dessa forma, Modify funciona como um construtor do tipo música que aplica o instrumento em toda a composição. É possível definir o instrumento no algoritmo diretamente na composição ou ao compilar a composição, como veremos em exemplos abaixo.
+  
+  ### Funções
   
   * Para inverter uma música, existe a função "retro" definida por:
   
@@ -80,10 +82,12 @@ Dó → c  /  Ré → d  /  Mi → e  /  Fá → f  /  Sol → g  /  Lá → a  
  * Para tocar músicas diferentes em paralelo
  
  ```
- chord   :: [Music a] -> Music a
+ chord     :: [Music a] -> Music a
+ chord [ ]      = rest 0
+ chord (m : ms) = m :=: chord ms
  ```
-  
-A função chord recebe uma lista de composições e reproduz as composições em paralelo como saída. Assim, chord [m1,m2] reproduz a composição m1 :=: m2.
+ 
+A função chord recebe uma lista de composições e reproduz as composições em paralelo como saída. Assim, chord [m1,m2,m3] reproduz a composição m1 :=: m2 :=: m3, pois para uma lista com pelo menos um item, chord é aplicada recursivamente compondo cada item em paralelo (:=:) com os próximos itens da lista. 
 
 * Para inverter a ordem das notas por tons
 
@@ -151,7 +155,7 @@ A função invert é usada para inverter a ordem das notas de forma que Dó cont
  ```
 playFromPath (id.funcao)
  ```
- O primeiro comando é usado para que o GHCI leia o arquivo que você usará para reproduzir o MIDI. O segundo comando é para enviar para o algoritmo o MIDI que você quer que seja reproduzido. Neste comando, playFilePath é o nome de uma função do algoritmos que solicita o caminho do diretório onde se encontra o seu arquivo MIDI seguido pelo nome do arquivo MIDI.
+ O primeiro comando é usado para que o GHCI leia o arquivo que você usará para reproduzir o MIDI. O segundo comando é para enviar para o algoritmo o MIDI que você quer que seja reproduzido junto a função que deseja aplicar ao MIDI. Neste comando, playFilePath é o nome de uma função do algoritmos que solicita o caminho do diretório onde se encontra o seu arquivo MIDI seguido pelo nome do arquivo MIDI. Caso queira reproduzir o MIDI sem aplicar nenhuma função, basta chamar ```playFromPath id ``` e escrever o diretorio e nome do arquivo quando solicitado (ex: dir1/dir2/nome_do_midi.mid).
  
   Antes de ser reproduzido, o arquivo MIDI precisa ser tratado devido a forma como entra no programa. Por ser uma entrada externa ao programa, o arquivo entra com o tipo IO. Além disso, o arquivo de entrada pode ser tanto um MIDI quanto uma string (arquivo de texto), então o arquivo também entra com o tipo Either de forma que Right representa o arquivo MIDI e Left uma string (txt). No segundo caso, o programa retorna um erro pois a inteção é reproduzir apenas caso Right. 
   
