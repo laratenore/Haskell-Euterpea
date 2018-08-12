@@ -1,3 +1,5 @@
+module Exemplo2 where
+
 import Euterpea
 import Codec.Midi
                                       

@@ -79,24 +79,19 @@ import Euterpea
   ```
   
  Dessa forma, tempo recebe um número que divide a duração de cada nota na música. Assim, tempo 2 mySong divide o tempo das notas por 2, acelerando a música, reduzindo pela metade o tempo de execução da música. Por outro lado, tempo (1/2) mySong desacelera a música pois multiplica por 2 cada nota, duplicando o tempo de execução. 
+ 
+  * Para tocar músicas diferentes em paralelo
+  ```
+line, chord :: [Music a] -> Music a
+line   = foldr (:+:) (rest 0)
+chord  = foldr (:=:) (rest 0)
+ ```
+A função chord recebe uma lista de composições e reproduz as composições em paralelo como saída. Assim, chord [m1,m2,m3] reproduz a composição m1 :=: m2 :=: m3 pois, com o uso do foldr, a função varre a lista aplicando (:=:) nos elementos e então, quando a lista acaba, aplica o mesmo operador na música resultante com uma pausa de tempo 0 (elemento netro).
+ 
  * Para tocar músicas ou notas diferentes em sequência
+
+ A função line recebe uma lista de notas ou de composições e concatena ela usando o operador :+: de forma a reproduzir cada item da lista em sequência. Dessa forma, line [m1,m2,m3] reproduz m1 :+: m2 :+: m3. A definição desta função é muito parecido com a definição da função chord, a única diferença é o operador utilizado.
  
- ```
- line :: [Music a] → Music a
- line [ ]      = rest 0
- line (m : ms) = m :+: line ms
- ```
- A função line recebe uma lista de notas ou de composições e concatenas ela usando o operador :+: de forma a reproduzir cada item da lista em sequência. Dessa forma, line [m1,m2,m3] reproduz m1 :+: m2 :+: m3.
- 
- * Para tocar músicas diferentes em paralelo
- 
- ```
- chord     :: [Music a] -> Music a
- chord [ ]      = rest 0
- chord (m : ms) = m :=: chord ms
- ```
- 
-A função chord recebe uma lista de composições e reproduz as composições em paralelo como saída. Assim, chord [m1,m2,m3] reproduz a composição m1 :=: m2 :=: m3, pois para uma lista com pelo menos um item, chord é aplicada recursivamente compondo cada item em paralelo (:=:) com os próximos itens da lista. 
 
 * Para inverter a ordem das notas por tons
 
@@ -261,3 +256,26 @@ adicionaPausas :: Music1 -> Int -> [Music1]
 
 Assim, canonInD é a reprodução paralela de acompanhamentoCompleto (bass) e principalCompleta (violinos). Ao compilar o arquivo, e chamando a função ```play canonInD``` é possível ouvir a reprodução da música completa.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span style="color: #f2cf4a; font-family: Babas; font-size: 2em;">sɥ˙ooɟ oʌᴉnbɹɐ ou sʇl ǝʇᴉƃᴉp ɐɔunu</span>
