@@ -218,7 +218,7 @@ A função invert é usada para inverter a ordem das notas de forma que Dó cont
 No arquivo "Canon.hs" apresentamos uma maneira de reproduzir a música Canon in D de Johann Pachelbel. Esta música tem uma característica interessante por ser composta pela mesma música tocada por 3 violinos em tempos diferentes e um acompanhamento que repete uma mesma sequência de 8 notas durante toda a música.
 
 ![Figura1](https://upload.wikimedia.org/wikipedia/commons/1/16/Pachelbel-canon-colors.png? "Imagem 1")
-Fonte: ``` Pachelbel-canon-colors.png. (2015, February 15). Wikimedia Commons, the free media repository. Retrieved 11:36, August 13, 2018 from https://commons.wikimedia.org/w/index.php?title=File:Pachelbel-canon-colors.png&oldid=150135129.```.
+Fonte: ```https://commons.wikimedia.org/w/index.php?title=File:Pachelbel-canon-colors.png&oldid=150135129.```.
 
 O acompanhamento foi escrito composto manualmente no arquivo, enquanto a música principal foi extraido do arquivo MIDI "Canon.mid", que tem apenas um violino tocando e um pedaço do acompanhamento no começo e no final (para melhor entendimento, toque o arquivo "Canon.mid" utilizando o exemplo anterior). Para extrair o arquivo em formato txt criamos o algoritmo "MidiParaMusica1TXT.hs". Neste algoritmo, a função writeMusicInTxt é definida tal que:
 
@@ -258,26 +258,12 @@ adicionaPausas :: Music1 -> Int -> [Music1]
 
 Assim, canonInD é a reprodução paralela de acompanhamentoCompleto (bass) e principalCompleta (violinos). Ao compilar o arquivo, e chamando a função ```play canonInD``` é possível ouvir a reprodução da música completa.
 
+sɥ˙ooɟ oʌᴉnbɹɐ ou sʇl ǝʇᴉƃᴉp ɐɔunu
 
+## Referência
 
+* Hudak, Paul. "The Haskell School of Music." Yale University (2008).
 
+* "Cânone em Ré Maior." Wikipédia, a enciclopédia livre. 21 jul. 2018, 16h00min UTC. 21 jul. 2018, 16:00 <https://pt.wikipedia.org/w/index.php?title=C%C3%A2none_em_R%C3%A9_Maior&oldid=52716798>.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<span style="color: #f2cf4a; font-family: Babas; font-size: 2em;">sɥ˙ooɟ oʌᴉnbɹɐ ou sʇl ǝʇᴉƃᴉp ɐɔunu</span>
+* "Fun with Music and Programming by Connor Harris and Stephen Krewson". CS50, Youtube. 28 jun. 2016.  <https://pt.wikipedia.org/w/index.php?title=C%C3%A2none_em_R%C3%A9_Maior&oldid=52716798>.
