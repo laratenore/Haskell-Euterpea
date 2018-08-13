@@ -15,6 +15,7 @@ cabal update
 
 cabal install Euterpea
 ```
+  
 
   Esta instalação simples da biblioteca já permite que o Haskell identifique notas e instrumentos, além de reconhecimento de arquivos MIDI como explicaremos nas próximas sessões.
 
@@ -260,7 +261,7 @@ Assim, canonInD é a reprodução paralela de acompanhamentoCompleto (bass) e pr
 
 sɥ˙ooɟ oʌᴉnbɹɐ ou sʇl ǝʇᴉƃᴉp ɐɔunu
 
-## Referência
+## Referências
 
 * Hudak, Paul. "The Haskell School of Music." Yale University (2008).
 
