@@ -15,8 +15,38 @@ cabal update
 
 cabal install Euterpea
 ```
-  
 
+  É possível também usar a biblioteca com o stack seguindo os seguintes passos:
+  ```
+  stack update
+
+  stack upgrade
+
+  stack new nome_do_projeto simple
+  
+  cd nome_do_projeto 
+
+  stack setup
+  ```
+  Para usar o Euterpea é necessário editar o arquivo ```stack.yaml``` editando a seguinte linha:
+
+   ```
+   extra-deps: [Euterpea-2.0.5, PortMidi-0.1.6.1, arrows-0.4.4.2, Stream-0.4.7.2,lazysmallcheck-0.6]
+ ```
+  Além disso, é necessário indicar o uso da biblioteca Euterpea editando o arquivo ```nome_do_projeto.cabal``` alterando a seguinte linha:
+  
+  ```
+  build-depends: base >= 4.7 && < 5, Euterpea
+  ```
+  
+  Assim, o código haskell pode ser inserido no arquivo Main.hs. Para compilar o arquivo use:
+ 
+ ```
+ stack build
+
+  stack exec nome_do_projeto
+  ```
+  
   Esta instalação simples da biblioteca já permite que o Haskell identifique notas e instrumentos, além de reconhecimento de arquivos MIDI como explicaremos nas próximas sessões.
 
 
