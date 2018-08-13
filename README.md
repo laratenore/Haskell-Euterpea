@@ -44,7 +44,7 @@ cabal install Euterpea
  ```
  stack build
 
-  stack exec nome_do_projeto
+ stack exec nome_do_projeto
   ```
   
   Esta instalação simples da biblioteca já permite que o Haskell identifique notas e instrumentos, além de reconhecimento de arquivos MIDI como explicaremos nas próximas sessões.
